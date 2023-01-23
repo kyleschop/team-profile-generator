@@ -2,7 +2,7 @@ const inquirer = require('inquirer');
 const generateHTML = require('./src/page-template');
 const fs = require('fs');
 
-const questions = [
+const question = [
     {
         type: 'input',
         name: 'managerName',
@@ -22,7 +22,10 @@ const questions = [
         type: 'input',
         name: 'managerOfficeNumber',
         message: "What is the team manager's office number?"
-    },
+    }
+];
+
+const questions = [
     {
         type: 'list',
         name: 'teamMember',
@@ -32,48 +35,88 @@ const questions = [
     {
         type: 'input',
         name: 'engineerName',
-        message: "What is the engineer's name?"
+        message: "What is the engineer's name?",
+        when: function (answers) {
+            return answers.teamMember === 'Engineer';
+        }
     },
     {
         type: 'input',
         name: 'engineerID',
-        message: "What is the engineer's ID?"
+        message: "What is the engineer's ID?",
+        when: function (answers) {
+            return answers.teamMember === 'Engineer';
+        }
     },
     {
         type: 'input',
         name: 'engineerEmail',
-        message: "What is the engineer's email?"
+        message: "What is the engineer's email?",
+        when: function (answers) {
+            return answers.teamMember === 'Engineer';
+        }
     },
     {
         type: 'input',
         name: 'engineerGithub',
-        message: "What is the engineer's github username?"
+        message: "What is the engineer's github username?",
+        when: function (answers) {
+            return answers.teamMember === 'Engineer';
+        }
     },
     {
         type: 'input',
         name: 'internName',
-        message: "What is the intern's name?"
+        message: "What is the intern's name?",
+        when: function (answers) {
+            return answers.teamMember === 'Intern';
+        }
     },
     {
         type: 'input',
         name: 'internID',
-        message: "What is the intern's ID?"
+        message: "What is the intern's ID?",
+        when: function (answers) {
+            return answers.teamMember === 'Intern';
+        }
     },
     {
         type: 'input',
         name: 'internEmail',
-        message: "What is the intern's email?"
+        message: "What is the intern's email?",
+        when: function (answers) {
+            return answers.teamMember === 'Intern';
+        }
     },
     {
         type: 'input',
         name: 'internSchool',
-        message: "what school is the intern from?"
+        message: "what school is the intern from?",
+        when: function (answers) {
+            return answers.teamMember === 'Intern';
+        }
     }
 ];
 
-inquirer.prompt(questions).then(answers => {
-    createHTML(answers);
-});
+const allAnswers = []
+const askQuestion = () => {
+    inquirer.prompt(question).then(answers => {
+        allAnswers.push(answers)
+        const askQuestions = () => {
+            inquirer.prompt(questions).then(answers => {
+                allAnswers.push(answers)
+                if (answers.teamMember !== 'I am done') {
+                    askQuestions();
+                } else {
+                    createHTML(answers);
+                }
+            });
+        }
+        askQuestions();
+    });
+}
+
+askQuestion();
 
 const createHTML = data => {
     const template =
