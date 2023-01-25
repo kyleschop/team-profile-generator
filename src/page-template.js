@@ -1,5 +1,5 @@
 function generateHTML(allAnswers) {
-  return `<!DOCTYPE html>
+    return `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -41,13 +41,24 @@ function generateHTML(allAnswers) {
             </section>
             <section class="cards">
                 <section>
+                    <section class="cardHeader" id="cardHeader">
+                        <h2>${allAnswers[2].engineerName}</h2>
+                        <h3>Engineer</h3>
+                    </section>
+                    <p>ID: ${allAnswers[2].engineerID}</p>
+                    <a href="mailto:${allAnswers[2].engineerEmail}">Email: ${allAnswers[2].engineerEmail}</a>
+                    <a href="https://github.com/${allAnswers[2].engineerGithub}" target="_blank">GitHub: ${allAnswers[2].engineerGithub}</a>
+                </section>
+            </section>
+            <section class="cards">
+                <section>
                      <section class="cardHeader" id="cardHeader">
-                        <h2>${allAnswers[2].internName}</h2>
+                        <h2>${allAnswers[3].internName}</h2>
                          <h3>Intern</h3>
                     </section>
-                    <p>ID: ${allAnswers[2].internID}</p>
-                    <a href="mailto:${allAnswers[2].internEmail}">Email: ${allAnswers[2].internEmail}</a>
-                     <p>School: ${allAnswers[2].internSchool}</p>
+                    <p>ID: ${allAnswers[3].internID}</p>
+                    <a href="mailto:${allAnswers[3].internEmail}">Email: ${allAnswers[3].internEmail}</a>
+                     <p>School: ${allAnswers[3].internSchool}</p>
                     </section>
                 </section>
         </section>
