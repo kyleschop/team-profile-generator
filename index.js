@@ -1,6 +1,9 @@
 const inquirer = require('inquirer');
 const generateHTML = require('./src/page-template');
 const fs = require('fs');
+const path = require("path");
+const DIST_DIR = path.resolve(__dirname, "dist");
+const distPath = path.join(DIST_DIR, "team.html");
 
 const question = [
     {
@@ -98,17 +101,17 @@ const questions = [
     }
 ];
 
-const allAnswers = []
+const allAnswers = [];
 const askQuestion = () => {
     inquirer.prompt(question).then(answers => {
-        allAnswers.push(answers)
+        allAnswers.push(answers);
         const askQuestions = () => {
             inquirer.prompt(questions).then(answers => {
-                allAnswers.push(answers)
+                allAnswers.push(answers);
                 if (answers.teamMember !== 'I am done') {
                     askQuestions();
                 } else {
-                    createHTML(answers);
+                    createHTML(allAnswers);
                 }
             });
         }
@@ -118,10 +121,14 @@ const askQuestion = () => {
 
 askQuestion();
 
-const createHTML = data => {
+const createHTML = allAnswers => {
+    console.log(allAnswers);
     const template =
-    generateHTML(data);
-    fs.writeFile('team.html', template, (err) => {
+    generateHTML(allAnswers);
+    if (!fs.existsSync(DIST_DIR)) {
+        fs.mkdirSync(DIST_DIR);
+      }
+    fs.writeFile(distPath, template, (err) => {
         err ? console.log(err) : console.log('Success!');
     });
 };
