@@ -1,0 +1,50 @@
+body {
+    background-color: white;
+}
+
+header {
+    background-color: rgb(77, 227, 79);
+    color: white;
+}
+
+header h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    padding: 10px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.card {
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.cards {
+    border-style: double;
+    width: 20%;
+}
+
+.cards section {
+    display: flex;
+    flex-direction: column;
+}
+
+.cardHeader {
+    background-color: rgb(77, 227, 79);
+    width: 100%;
+}
+
+.cardHeader h2, h3 {
+    margin: 8px;
+}
+
+.cards a, p {
+    color: black;
+    margin: 5px;
+}
